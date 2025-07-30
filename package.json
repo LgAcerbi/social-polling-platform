@@ -37,9 +37,12 @@
     "packages/*",
     "/apps/auth-service",
     "/apps/auth-service-e2e",
-    "libs/internal/rest-server"
+    "libs/internal/rest-server",
+    "libs/internal/socket-server"
   ],
   "dependencies": {
-    "axios": "^1.6.0"
+    "@types/supertest": "^6.0.3",
+    "axios": "^1.6.0",
+    "supertest": "^7.1.4"
   }
 }
