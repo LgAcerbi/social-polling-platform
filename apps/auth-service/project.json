@@ -1,0 +1,112 @@
+{
+  "name": "auth-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/auth-service/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "apps/auth-service/dist",
+        "format": [
+          "cjs"
+        ],
+        "bundle": false,
+        "main": "apps/auth-service/src/main.ts",
+        "tsConfig": "apps/auth-service/tsconfig.app.json",
+        "assets": [
+          "apps/auth-service/src/assets"
+        ],
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "generateLockfile": true,
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "buildTarget": "auth-service:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "auth-service:build:development"
+        },
+        "production": {
+          "buildTarget": "auth-service:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "passWithNoTests": true,
+        "jestConfig": "apps/auth-service/jest.config.ts"
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    },
+    "typecheck": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/auth-service",
+        "main": "apps/auth-service/src/main.ts",
+        "tsConfig": "apps/auth-service/tsconfig.app.json",
+        "assets": [
+          "apps/auth-service/src/assets"
+        ]
+      }
+    },
+    "docker-build": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "command": "docker build -f apps/auth-service/Dockerfile . -t auth-service"
+      }
+    }
+  },
+  "tags": []
+} 
