@@ -18,4 +18,6 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: 'test-output/jest/coverage',
+  verbose: true,
+  collectCoverage: false,
 };
