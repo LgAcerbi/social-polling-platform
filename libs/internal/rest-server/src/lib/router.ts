@@ -12,7 +12,7 @@ class Router {
     }
 
     private buildRouteKey(route: Route): RouteKey {
-        return `${route.method} ${route.method}`
+        return `${route.method} ${route.path}`
     }
 
     public printRoutes(){
