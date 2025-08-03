@@ -1,6 +1,8 @@
 import { IncomingMessage, ServerOptions, ServerResponse } from "http";
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS';
+type Request = IncomingMessage; 
+type Response = ServerResponse;
 
 interface Route<T = unknown> {
     path: string;
@@ -14,4 +16,4 @@ interface RestServerOptions extends ServerOptions {
    routes: Route[];
 }
 
-export type { Route, RestServerOptions, HttpMethod };
+export type { Route, RestServerOptions, HttpMethod, Request, Response };

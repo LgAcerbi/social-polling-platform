@@ -1,6 +1,6 @@
 import { Server } from 'http';
 
-import type { RestServerOptions } from './types/rest-server';
+import type { RestServerOptions } from './types';
 import { Router } from './router'
 
 // TODO: Routes
@@ -26,6 +26,8 @@ class RestServer {
         this.httpServer.listen(serverPort, () => {
             console.log(`Server is running on port ${serverPort}`);
         });
+
+        this.httpServer.on('request', this.router.handleRequest)
 
         this.router.printRoutes()
     }
